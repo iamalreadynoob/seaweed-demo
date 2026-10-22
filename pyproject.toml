@@ -1,0 +1,92 @@
+[project]
+name="seaweedfs-demo"
+version="1.0.0"
+description="SeaweedFS Demo"
+readme="README.md"
+requires-python=">= 3.12"
+authors=[
+    {name="iamalreadynoob", email="sadikefe69@gmail.com"}
+]
+dependencies = [
+    "boto3>=1.43.117",
+    "python-dotenv>=1.2.4",
+]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+exclude = [
+    "__init__.py",
+    ".env",
+    ".gitignore",
+    "requirements.txt",
+    "uv.lock",
+    ".claude/skills",  # vendored third-party skills
+]
+force-exclude = true
+
+[tool.ruff.lint]
+select = [
+    "F",   # pyflakes
+    "E",   # pycodestyle
+    "W",   # whitespace and newlines
+    "I",   # isort
+    "UP",  # modernize
+    "ANN", # flake8 type annotations
+    "S",   # flake8 bandit
+    "B",   # flake8 bugbear
+    "C4",  # flake8 comprehensions
+    "COM", # flake8 commas
+    "T20", # flake8 print
+    "SIM", # flake8 simplify
+    "ARG", # flake8 unused arguments
+    "DTZ", # flake8 datetimes
+    "Q",   # flake8 quotes
+    "TCH", # flake8 typecheck
+    "D",   # pydocstyle
+    "RUF", # ruff-specific rules
+]
+fixable = ["ALL"]
+ignore = [
+    "D203", "D213", "D215", "D400", "D401", "D404", "D406",
+    "D407", "D408", "D409", "D413", "UP035", "UP006", "D107",
+    "LOG015", "UP015", "ANN204", "B008"
+]
+allowed-confusables = ["ı"]
+
+[tool.ruff.lint.per-file-ignores]
+"test*" = ["D", "ANN"]
+"tests/**" = ["D", "ANN", "S101"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = 88
+
+[tool.pytest.ini_options]
+minversion = "9.0"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["-ra", "--strict-markers", "--strict-config", "--import-mode=importlib"]
+xfail_strict = true
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["app"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13.1",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+]
